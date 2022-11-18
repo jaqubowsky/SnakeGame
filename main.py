@@ -3,6 +3,12 @@ from food import Food
 from snake import Snake
 from scoreboard import Scoreboard
 import time
+import random 
+
+
+#Random colors.
+def color():
+    return random.randint(0,255)
 
 #Setting up the screen.
 screen = Screen()
@@ -10,6 +16,7 @@ screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.title("Snake Game")
 screen.tracer(0)
+screen.colormode(255)
 
 #Creating 3-square snake.
 snake = Snake()
@@ -27,7 +34,7 @@ screen.onkey(snake.right, "d")
 game_is_on = True
 while game_is_on:
     screen.update()
-    time.sleep(0.1)
+    time.sleep(0.06)
     snake.move()
     
     #Detect collision with food and walls.
@@ -46,6 +53,11 @@ while game_is_on:
         if snake.head.distance(segment) < 10:
             game_is_on = False
             scoreboard.game_over()
+            
+    #Rainbow snake.
+    if scoreboard.score >= 10:
+        for snake_obj in snake.snakes:
+            snake.color = snake_obj.color(color(), color(), color())
            
 
 screen.exitonclick()
