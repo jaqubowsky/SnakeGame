@@ -9,7 +9,6 @@ LEFT = 180
 RIGHT = 0
 
 class Snake:
-    
     def __init__(self):
         self.snakes = []
         self.create_snake()
@@ -28,7 +27,14 @@ class Snake:
             
     def extend(self):
         self.new_segment(self.snakes[-1].position())
-            
+        
+    def reset(self):
+        for snake in self.snakes:
+            snake.goto(1000,1000)
+        self.snakes.clear()
+        self.create_snake()
+        self.head = self.snakes[0]
+        
     def move(self):
         for snake_num in range(len(self.snakes)-1, 0, -1):
             new_x = self.snakes[snake_num-1].xcor()
